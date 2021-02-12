@@ -40,7 +40,7 @@ const { nextISSTimesForMyLocation } = require('./iss');
 //   console.log('It worked! Returned flyover times:' , passTimes);
 // });
 
-const printPassTimes = function(passTimes) {
+printPassTimes = (passTimes) => {
   for (const pass of passTimes) {
     const datetime = new Date(0);
     datetime.setUTCSeconds(pass.risetime);
