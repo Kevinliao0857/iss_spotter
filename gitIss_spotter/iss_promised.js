@@ -9,20 +9,21 @@ const fetchCoordsByIP = function(body) {
   return request(`https://freegeoip.app/json/${ip}`);
 };
 
-const fetchISSFlyOverTimes = (body) => {
-  const { latitude, longitude } = JSON.parse(body).data;
-  return request(`http://api.open-notify.org/iss-pass.json?lat=${latitude}&lon=${longitude}`);
+const fetchISSFlyOverTimes = function(body) {
+  const { latitude, longitude } = JSON.parse(body);
+  const url = `http://api.open-notify.org/iss-pass.json?lat=${latitude}&lon=${longitude}`;
+  return request(url);
 };
 
 
 const nextISSTimesForMyLocation = function() {
   return fetchMyIP()
-  .then(fetchCoordsByIP)
-  .then(fetchISSFlyOverTimes)
-  .then((data) => {
-    const { response } = JSON.parse(data);
-    return response;
-  });
+    .then(fetchCoordsByIP)
+    .then(fetchISSFlyOverTimes)
+    .then((data) => {
+      const { response } = JSON.parse(data);
+      return response;
+    });
 };
 
 module.exports = { nextISSTimesForMyLocation };
